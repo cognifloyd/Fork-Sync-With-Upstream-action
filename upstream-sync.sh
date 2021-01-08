@@ -46,13 +46,13 @@ git log upstream/"${INPUT_UPSTREAM_BRANCH}" "${LOCAL_COMMIT_HASH}"..HEAD ${INPUT
 # sync from upstream to target_branch
 echo 'Syncing...' 1>&1
 # sync_command examples: "pull", "merge --ff-only", "reset --hard"
-if [[ "$INPUT_GIT_SYNC_COMMAND" =~ ^pull.* ]]; then
+case "$INPUT_GIT_SYNC_COMMAND" in
     # pull takes remote and branch as two args.
-    git ${INPUT_GIT_SYNC_COMMAND} upstream "${INPUT_UPSTREAM_BRANCH}"
-else
+    pull*) git ${INPUT_GIT_SYNC_COMMAND} upstream "${INPUT_UPSTREAM_BRANCH}" ;;
+
     # merge and reset take remote and branch as one args.
-    git ${INPUT_GIT_SYNC_COMMAND} upstream/"${INPUT_UPSTREAM_BRANCH}"
-fi
+	*) git ${INPUT_GIT_SYNC_COMMAND} upstream/"${INPUT_UPSTREAM_BRANCH}" ;;
+esac
 echo 'Sync successful' 1>&1
 
 # push to origin target_branch
