@@ -51,6 +51,10 @@ inputs:
 outputs:
   has_new_commits:
     description: 'true when new commits were included in this sync'
+  old_sha:
+    description: 'commit hash before sync'
+  new_sha:
+    description: 'commit hash after sync'
 
 runs:
   using: 'node12'

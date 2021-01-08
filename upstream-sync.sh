@@ -29,6 +29,8 @@ git remote add upstream "${UPSTREAM_REPO}"
 git fetch ${INPUT_GIT_FETCH_ARGS} upstream "${INPUT_UPSTREAM_BRANCH}"
 LOCAL_COMMIT_HASH=$(git rev-parse "${INPUT_TARGET_BRANCH}")
 UPSTREAM_COMMIT_HASH=$(git rev-parse upstream/"${INPUT_UPSTREAM_BRANCH}")
+echo "::set-output name=old_sha::${LOCAL_COMMIT_HASH}"
+echo "::set-output name=new_sha::${UPSTREAM_COMMIT_HASH}"
 
 if [ "${LOCAL_COMMIT_HASH}" = "${UPSTREAM_COMMIT_HASH}" ]; then
     echo "::set-output name=has_new_commits::false"
